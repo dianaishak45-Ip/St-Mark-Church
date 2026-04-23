@@ -1,0 +1,45 @@
+{
+  "entities": {
+    "SundaySchoolRegistration": {
+      "title": "Sunday School Registration",
+      "description": "Registration for children participating in Sunday School activities.",
+      "type": "object",
+      "properties": {
+        "childName": { "type": "string", "description": "Full name of the child" },
+        "class": { "type": "string", "description": "Age group/class (e.g., Nursery, Primary, Prep)" },
+        "birthDay": { "type": "string", "format": "date", "description": "Child's date of birth" },
+        "parentName": { "type": "string", "description": "Name of the parent or guardian" },
+        "phone": { "type": "string", "description": "Contact phone number" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"], "description": "Status of the registration" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the registration was created" }
+      },
+      "required": ["childName", "class", "parentName", "phone"]
+    },
+    "PriestBooking": {
+      "title": "Priest Booking",
+      "description": "Booking for confession or spiritual guidance with a priest.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Name of the person booking" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "date": { "type": "string", "format": "date", "description": "The requested date" },
+        "time": { "type": "string", "description": "The requested time slot" },
+        "priestId": { "type": "string", "description": "ID of the priest being booked" },
+        "priestName": { "type": "string", "description": "Name of the priest being booked" },
+        "status": { "type": "string", "enum": ["pending", "confirmed", "cancelled"], "description": "Status of the booking" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the booking was created" }
+      },
+      "required": ["name", "phone", "date", "time", "priestId"]
+    }
+  },
+  "firestore": {
+    "/registrations/{registrationId}": {
+      "schema": "SundaySchoolRegistration",
+      "description": "Sunday School registrations collection"
+    },
+    "/bookings/{bookingId}": {
+      "schema": "PriestBooking",
+      "description": "Priest bookings collection"
+    }
+  }
+}

@@ -1,0 +1,51 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function serverTime() { return request.time; }
+
+    // Sunday School Registrations
+    match /registrations/{registrationId} {
+      allow create: if isValidRegistration(incoming());
+      // No public read/list/update/delete for security
+    }
+
+    function isValidRegistration(data) {
+      return data.keys().hasAll(['childName', 'class', 'parentName', 'phone', 'status', 'createdAt'])
+        && data.keys().size() == 6
+        && data.childName is string && data.childName.size() <= 200
+        && data.class is string && data.class.size() <= 50
+        && data.parentName is string && data.parentName.size() <= 200
+        && data.phone is string && data.phone.size() <= 20
+        && data.status == 'pending'
+        && data.createdAt == serverTime();
+    }
+
+    // Priest Bookings
+    match /bookings/{bookingId} {
+      allow create: if isValidBooking(incoming());
+      // No public read/list/update/delete
+    }
+
+    function isValidBooking(data) {
+      return data.keys().hasAll(['name', 'phone', 'date', 'time', 'priestId', 'priestName', 'status', 'createdAt'])
+        && data.keys().size() == 8
+        && data.name is string && data.name.size() <= 200
+        && data.phone is string && data.phone.size() <= 20
+        && data.date is string && data.date.size() <= 20
+        && data.time is string && data.time.size() <= 20
+        && data.priestId is string && data.priestId.size() <= 100
+        && data.priestName is string && data.priestName.size() <= 200
+        && data.status == 'pending'
+        && data.createdAt == serverTime();
+    }
+  }
+}

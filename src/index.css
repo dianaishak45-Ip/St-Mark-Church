@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@200..1000&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Amiri", serif;
+}
+
+body {
+  @apply bg-stone-50 text-stone-900;
+  direction: rtl;
+}
+
+.arabic-serif {
+  font-family: var(--font-serif);
+}
+
+.arabic-sans {
+  font-family: var(--font-sans);
+}
