@@ -16,14 +16,3 @@ export interface Servant {
   specialty?: string;
   availableDays: string[];
 }
-
-export interface Booking {
-  id: string;
-  priestId: string;
-  name: string;
-  phone: string;
-  date: string;
-  time: string;
-  status: 'pending' | 'confirmed' | 'cancelled';
-  createdAt: any;
-}

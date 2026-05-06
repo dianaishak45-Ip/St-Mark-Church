@@ -9,7 +9,7 @@ export default function Navbar({ activeTab, setActiveTab }: NavbarProps) {
   const tabs = [
     { id: 'home', label: 'الرئيسية', icon: Home },
     { id: 'readings', label: 'القراءات', icon: Book },
-    { id: 'sunday-school', label: 'مدارس الأحد', icon: GraduationCap },
+    { id: 'services', label: 'خدمات الكنيسة', icon: LayoutGrid },
     { id: 'announcements', label: 'الإعلانات', icon: Megaphone },
     { id: 'events', label: 'المواعيد', icon: Calendar },
   ];
